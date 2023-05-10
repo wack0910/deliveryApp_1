@@ -16,24 +16,18 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long customerId;
-
+    private Long customerId; 
     private Long orderId;
-
     private Long foodId;
-
     private String foodName;
-
     private String status;
-
     private String address;
-
     private Integer qty;
 
     @PostPersist
     public void onPostPersist() {
-        OrderRejected orderRejected = new OrderRejected(this);
-        orderRejected.publishAfterCommit();
+        // OrderRejected orderRejected = new OrderRejected(this);
+        // orderRejected.publishAfterCommit();
     }
 
     @PrePersist
@@ -50,18 +44,32 @@ public class Restaurant {
     }
 
     public void select(SelectCommand selectCommand) {
+        if(selectCommand.getAccept()){
         OrderAccepted orderAccepted = new OrderAccepted(this);
         orderAccepted.publishAfterCommit();
+
+        setStatus("Accepted");
+        }
+        else{
+        OrderRejected orderRejected = new OrderRejected(this);
+        orderRejected.publishAfterCommit();
+
+        setStatus("Rejected");
+        }
     }
 
     public void start() {
         CookStarted cookStarted = new CookStarted(this);
         cookStarted.publishAfterCommit();
+
+        setStatus("CookStarted");
     }
 
     public void finish() {
         CookCompleted cookCompleted = new CookCompleted(this);
         cookCompleted.publishAfterCommit();
+        
+        setStatus("CookFinished");
     }
 
     public static void updateStatus(Paid paid) {
@@ -69,18 +77,17 @@ public class Restaurant {
         Restaurant restaurant = new Restaurant();
         repository().save(restaurant);
 
-        */
+        */ 
 
-        /** Example 2:  finding and process
+        /** Example 2:  finding and process*/
         
-        repository().findById(paid.get???()).ifPresent(restaurant->{
-            
-            restaurant // do something
+        repository().findByOrderId(paid.getId()).ifPresent(restaurant->{
+            restaurant.setStatus("Paid"); // do something
             repository().save(restaurant);
 
 
          });
-        */
+        
 
     }
 
@@ -91,25 +98,29 @@ public class Restaurant {
 
         */
 
-        /** Example 2:  finding and process
+        /** Example 2:  finding and process*/
         
-        repository().findById(orderCancled.get???()).ifPresent(restaurant->{
+        repository().findByOrderId(orderCancled.getId()).ifPresent(restaurant->{
             
-            restaurant // do something
+            restaurant.setStatus("OrderCancled"); // do something
             repository().save(restaurant);
-
-
          });
-        */
+        
 
     }
 
     public static void copyOrder(OrderPlaced orderPlaced) {
-        /** Example 1:  new item 
+        /** Example 1:  new item */
         Restaurant restaurant = new Restaurant();
+        restaurant.setAddress(orderPlaced.getAddress());
+        restaurant.setCustomerId(orderPlaced.getCustomerId());
+        restaurant.setFoodId(orderPlaced.getFoodId());
+        restaurant.setStatus("NoPaid");
+        restaurant.setOrderId(orderPlaced.getId());
+        restaurant.setQty(orderPlaced.getQty());
         repository().save(restaurant);
 
-        */
+        
 
         /** Example 2:  finding and process
         

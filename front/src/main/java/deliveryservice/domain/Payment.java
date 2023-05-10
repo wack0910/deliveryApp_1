@@ -36,26 +36,29 @@ public class Payment {
     }
 
     public static void pay(OrderPlaced orderPlaced) {
-        /** Example 1:  new item 
+        /** Example 1:  new item */
         Payment payment = new Payment();
+        payment.setOrderId(orderPlaced.getId());
+        payment.setTotalPrice(orderPlaced.getTotalPrice());
+        payment.setStatus("Ordered");
         repository().save(payment);
 
         Paid paid = new Paid(payment);
         paid.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
         
-        repository().findById(orderPlaced.get???()).ifPresent(payment->{
+
+        /** Example 2:  finding and process 
+        
+        repository().findByOrderId(orderPlaced.getId()).ifPresent(payment->{
             
-            payment // do something
+            payment.setStatus("Ordered"); // do something
             repository().save(payment);
 
             Paid paid = new Paid(payment);
             paid.publishAfterCommit();
 
          });
-        */
-
+        
+*/
     }
 }

@@ -38,19 +38,28 @@ public class Delivery {
     public void pick() {
         Picked picked = new Picked(this);
         picked.publishAfterCommit();
+
+        setStatus("Picked");
     }
 
     public void finish() {
         Finished finished = new Finished(this);
         finished.publishAfterCommit();
+
+        setStatus("Finished");
     }
 
     public static void updateStatus(CookCompleted cookCompleted) {
-        /** Example 1:  new item 
+        /** Example 1:  new item */
         Delivery delivery = new Delivery();
+        delivery.setAddress(cookCompleted.getAddress());
+        delivery.setCustomerId(cookCompleted.getCustomerId());
+        delivery.setOrderId(cookCompleted.getOrderId());
+        delivery.setRestaurantId(cookCompleted.getId());
+        delivery.setStatus(cookCompleted.getStatus());
         repository().save(delivery);
 
-        */
+        
 
         /** Example 2:  finding and process
         

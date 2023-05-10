@@ -57,16 +57,16 @@ public class Order {
 
         */
 
-        /** Example 2:  finding and process
+        /** Example 2:  finding and process */
         
-        repository().findById(cookCompleted.get???()).ifPresent(order->{
+        repository().findById(cookCompleted.getOrderId()).ifPresent(order->{
             
-            order // do something
+            order.setStatus(cookCompleted.getStatus()); // do something
             repository().save(order);
 
 
          });
-        */
+        
 
     }
 
@@ -77,16 +77,16 @@ public class Order {
 
         */
 
-        /** Example 2:  finding and process
+        /** Example 2:  finding and process*/
         
-        repository().findById(cookStarted.get???()).ifPresent(order->{
+        repository().findById(cookStarted.getOrderId()).ifPresent(order->{
             
-            order // do something
+            order.setStatus(cookStarted.getStatus()); // do something
             repository().save(order);
 
 
          });
-        */
+        
 
     }
 
@@ -97,16 +97,16 @@ public class Order {
 
         */
 
-        /** Example 2:  finding and process
+        /** Example 2:  finding and process*/
         
-        repository().findById(orderRejected.get???()).ifPresent(order->{
+        repository().findById(orderRejected.getOrderId()).ifPresent(order->{
             
-            order // do something
+            order.setStatus(orderRejected.getStatus()); // do something
             repository().save(order);
 
 
          });
-        */
+        
 
     }
 
@@ -117,16 +117,16 @@ public class Order {
 
         */
 
-        /** Example 2:  finding and process
+        /** Example 2:  finding and process*/
         
-        repository().findById(orderAccepted.get???()).ifPresent(order->{
+        repository().findById(orderAccepted.getOrderId()).ifPresent(order->{
             
-            order // do something
+            order.setStatus(orderAccepted.getStatus()); // do something
             repository().save(order);
 
 
          });
-        */
+        
 
     }
 
@@ -137,16 +137,16 @@ public class Order {
 
         */
 
-        /** Example 2:  finding and process
+        /** Example 2:  finding and process*/
         
-        repository().findById(picked.get???()).ifPresent(order->{
+        repository().findById(picked.getOrderId()).ifPresent(order->{
             
-            order // do something
+            order.setStatus(picked.getStatus()); // do something
             repository().save(order);
 
 
          });
-        */
+        
 
     }
 
@@ -157,16 +157,16 @@ public class Order {
 
         */
 
-        /** Example 2:  finding and process
+        /** Example 2:  finding and process*/
         
-        repository().findById(finished.get???()).ifPresent(order->{
+        repository().findById(finished.getOrderId()).ifPresent(order->{
             
-            order // do something
+            order.setStatus(finished.getStatus()); // do something
             repository().save(order);
 
 
          });
-        */
+        
 
     }
 }
